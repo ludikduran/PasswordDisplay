@@ -41,6 +41,7 @@ namespace LD2.PasswordDisplay
         private string GetPassword(int portalID, UserInfo user, string passwordAnswer)
         {
             string password = "";
+
             if (user != null)
             {
                 password = UserController.GetPassword(ref user, passwordAnswer);
