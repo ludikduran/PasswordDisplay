@@ -20,9 +20,17 @@ namespace LD2.PasswordDisplay
         {
             try
             {
-                var list = UserController.GetUsers(0);
-                rptUserList.DataSource = list;
+                var userlist = UserController.GetUsers(0);
+                rptUserList.DataSource = userlist;
                 rptUserList.DataBind();
+
+                ArrayList passwordList = new ArrayList();
+                foreach(UserInfo user in userlist){
+                    passwordList.Add(GetPassword(0, user, ""));
+                }
+
+                rptPassword.DataSource = passwordList;
+                rptPassword.DataBind();
             }
             catch (Exception exc)
             {
@@ -30,6 +38,14 @@ namespace LD2.PasswordDisplay
             }
         }
 
-
+        private string GetPassword(int portalID, UserInfo user, string passwordAnswer)
+        {
+            string password = "";
+            if (user != null)
+            {
+                password = UserController.GetPassword(ref user, passwordAnswer);
+            }
+            return password;
+        }
     }
 }
